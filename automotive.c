@@ -1,65 +1,105 @@
 #include <stdio.h>
 
-float carRentalFee;
-float privateVehicleFee;
-float totalTaxiFee;
-float totalParkingFee;
-
 //Ask input amount of money that car rentals cost
 float carRentals(){
+    float carRentalFee;
     printf("Enter the amount you paid for car rentals: $");
     scanf("%f", &carRentalFee);
-    printf("The car rental fee is: $%f \n", carRentalFee);
+    while(carRentalFee < 0){
+        printf("Please enter a non-negative number.\n");
+        printf("Enter the amount you paid for car rentals: $");
+        scanf("%f", &carRentalFee);
+    }
     return carRentalFee;
 }
 
 //If private vehicle used, expense is $0.27 per mile driven.
 float privateVehicle(){
+    float privateVehicleFee;
     float milesDriven;
     printf("Enter the amount of miles you drove in your vehicle: ");
     scanf("%f", &milesDriven);
+    while (milesDriven < 0){
+        printf("Please enter a non-negative number.\n");
+        printf("Enter the amount of miles you drove in your vehicle: ");
+        scanf("%f", &milesDriven);
+    }   
     privateVehicleFee = (milesDriven * 0.27);
-    printf("The total driving fees are: $%f", privateVehicleFee);
     return privateVehicleFee;
 }
 
-//Returns the total parking fees. Parking fees paid -6$ a day.
+//Returns the total parking fees.
 float parkingFee(){
     float parkingFees;
-    float daysParked;
-    printf("\nEnter the amount parking fees paid: $");
+    printf("Enter the amount parking fees paid: $");
     scanf("%f", &parkingFees);
+    while(parkingFees < 0){
+        printf("Please enter a non-negative number.\n");
+        printf("Enter the amount parking fees paid: $");
+        scanf("%f", &parkingFees);
+    }
+    return parkingFees;
+}
+
+//Returns The allowable parking fees paid by the company 6$/day
+float parkingAllowance(){
+    float daysParked;
+    float parkAllowance;
     printf("Enter the amount days parked: ");
     scanf("%f", &daysParked);
-    totalParkingFee = (parkingFees - (6 * daysParked));
-    if(totalParkingFee < 0){
-        totalParkingFee = 0;
+    getchar();
+    while(daysParked < 0){
+        printf("Please enter a valid number of days that is not negative. \n");
+        printf("Enter the amount days parked: ");
+        scanf("%f", &daysParked);
     }
-    return totalParkingFee;
-
+    parkAllowance = (daysParked * 6);
+    return parkAllowance;
 }
+
+
 //Taxi fees = total amount paid - 10$/day
 float taxiFee(){
     float taxiFees;
-    float taxiDays;
     printf("Enter the amount of taxi fees paid: $");
     scanf("%f", &taxiFees);
-    printf("Enter the amount days that you used a taxi: ");
-    scanf("%f", &taxiDays);
-    totalTaxiFee = taxiFees - (10*taxiDays);
-    if(totalTaxiFee < 0){
-        totalTaxiFee = 0;
+    while(taxiFees < 0){
+        printf("Please enter a non-negative number.\n");
+        printf("Enter the amount of taxi fees paid: $");
+        scanf("%f", &taxiFees);
     }
-    return totalTaxiFee;
+    return taxiFees;
 }
 
-//Returns the total automotive fees incurred on the trip
+float taxiAllowance(){
+    float taxiDays;
+    float taxiAllow;
+    printf("Enter the amount days that you used a taxi: ");
+    scanf("%f", &taxiDays);
+    while(taxiDays < 0){
+        printf("Please enter a valid number of days that is not negative. \n");
+        printf("Enter the amount days that you used a taxi: ");
+        scanf("%f", &taxiDays);
+    }
+    taxiAllow = (taxiDays * 10);
+    return taxiAllow;
+}
+
+//Returns the total automotive fees incurred on the trip. Fees incurred by business person.
 float totalTravelFee(){
     float totalTravelFees;
-    totalTravelFees = carRentals() + privateVehicle() + parkingFee() + taxiFee();
+    totalTravelFees = carRentals() + privateVehicle() + parkingFee() + taxiFee() ;
     return totalTravelFees;
 }
 
+//Returns the allowable expenses for the automotive fees.
+float totalAllowance(){
+    float totalAllow;
+    totalAllow = parkingAllowance() + taxiAllowance();
+    return totalAllow;
+}
+
 int main(){
-    printf("The total automotive fees are: $%.2f", totalTravelFee());
+    //printf("The total automotive fees are: $%.2f \n", totalTravelFee());
+    //printf("The total allowance is: %.2f", totalAllowance());
 }
