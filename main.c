@@ -8,9 +8,12 @@ float savedAmount;
 
 int main(){
     totalExpenses = totalTravelFee();
-    printf("The total expenses for the trip are: $%.2f", totalExpenses);
     totalAllowableExpenses = totalAllowance();
-    printf("The total allowable expenses for the trip are: $%.2f", totalAllowableExpenses);
-    printf("The excess expenses that must be reimbursed are: $%.2f", excessExpenses);
+    printf("The total expenses for the trip are: $%.2f \n", totalExpenses);
+    printf("The total allowable expenses for the trip are: $%.2f \n", totalAllowableExpenses);
+    excessExpenses = (totalExpenses - totalAllowableExpenses);
+    printf("The excess expenses that must be reimbursed are: $%.2f \n", excessExpenses);
+    savedAutomotiveAllowance();
+    savedAmount = returnSavedParking() + returnSavedTaxi();
     printf("The amount saved is: $%.2f", savedAmount);
 }
