@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "automotive.h"
 
 //Ask input amount of money that car rentals cost
 float carRentals(){
@@ -99,7 +100,3 @@ float totalAllowance(){
     return totalAllow;
 }
 
-int main(){
-    //printf("The total automotive fees are: $%.2f \n", totalTravelFee());
-    //printf("The total allowance is: %.2f", totalAllowance());
-}
