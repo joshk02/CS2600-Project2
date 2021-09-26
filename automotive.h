@@ -5,4 +5,4 @@ float taxiFee();
 float parkingAllowance();
 float taxiAllowance();
 float totalTravelFee();
-float totalAllowance()
+float totalAllowance();
