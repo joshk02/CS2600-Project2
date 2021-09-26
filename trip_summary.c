@@ -1,30 +1,5 @@
 #include <stdio.h>
-#include <stdbool.h>
 #include "trip_summary.h"
-
-const float Bmeal=9, Lmeal=12, Dmeal=16;
-
-int main(){
-
-    int total_days = 0, breakfast=0, lunch=0, dinner=0, lastDayDeparture = 0, firstDayDeparture = 0;
-    float breakfastCost=0, breakfastAllowance=0, lunchCost=0, lunchAllowance=0, dinnerCost=0, dinnerAllowance=0;
-
-    totalDays(&total_days, &breakfast, &lunch, &dinner);
-
-    firstDeparture(&firstDayDeparture);
-    firstDayAvailability(firstDayDeparture, &breakfast, &lunch, &dinner);
-
-    lastDeparture(&lastDayDeparture);
-    lastDayAvailability(lastDayDeparture, &breakfast, &lunch, &dinner);
-
-    breakfastAllowance = breakfast*Bmeal;
-    lunchAllowance = lunch*Lmeal;
-    dinnerAllowance = dinner*Dmeal;
-
-    printf("You are given %d($%.0f) breakfast, %d($%.0f) lunch, and %d($%.0f) dinner.\n", breakfast, breakfastAllowance,lunch, lunchAllowance, dinner, dinnerAllowance);
-
-    return 0;
-}
 
 void totalDays(int *total_days, int* breakfast, int* lunch, int* dinner){
     int temp=0;
@@ -35,15 +10,29 @@ void totalDays(int *total_days, int* breakfast, int* lunch, int* dinner){
 
 void firstDeparture(int *firstDayDeparture){
     int temp=0;
-    printf("Please enter in military for the hour of departure for first day(0-24):");
-    scanf("%d", &temp);
+
+    do{
+        printf("Please enter in military for the hour of departure for first day(0-24):");
+        scanf("%d", &temp);
+
+        if(temp<0||temp>24)
+            printf("Incorrect input, please try again.\n\n");
+    }while(temp<0||temp>24);
+
     *firstDayDeparture=temp;
 }
 
 void lastDeparture(int *lastDayDeparture){
     int temp=0;
-    printf("Please enter in military for the hour of departure for last day(0-24):");
-    scanf("%d", &temp);
+
+    do{
+        printf("Please enter in military for the hour of departure for last day(0-24):");
+        scanf("%d", &temp);
+
+        if(temp<0||temp>24)
+            printf("Incorrect input, please try again.\n\n");
+    }while(temp<0||temp>24);
+
     *lastDayDeparture=temp;
 }
 
@@ -65,19 +54,45 @@ void lastDayAvailability(int DayDeparture, int* breakfast, int* lunch, int* dinn
         *dinner-=1;     
 }
 
-void bCost(float* cost)
+float cost(int meal)
 {
     float temp=0;
-    printf("How much did you spend for breakfast:");
-    scanf(%f)
+
+    if(meal==0){
+        printf("How much did you spend for breakfast:");
+        scanf("%f", &temp);
+    }
+    else if(meal==1){
+        printf("How much did you spend for lunch:");
+        scanf("%f", &temp);
+    }
+    else{
+        printf("How much did you spend for dinner:");
+        scanf("%f", &temp);
+    }
+
+    return temp;
 }
 
-void lCost(float* cost)
-{
+float tallyExpenses(float breakfastCost, float breakfastAllowance, float lunchCost, float lunchAllowance, float dinnerCost, float dinnerAllowance, float* mealExpenseSaved){
+    float Btemp=0,Ltemp=0,Dtemp=0, Etemp=0;
+    Btemp = breakfastCost - breakfastAllowance;
+    Ltemp = lunchCost - lunchAllowance;
+    Dtemp = dinnerCost - dinnerAllowance;
 
-}
+    if(Btemp <= 0){
+        Etemp += Btemp;
+        Btemp=0;
+    }
+    if(Ltemp <= 0){
+        Etemp += Ltemp;
+        Ltemp=0;
+    }
+    if(Dtemp <= 0){
+        Etemp += Dtemp;
+        Dtemp=0;
+    }
 
-void dCost(float* cost)
-{
-
+    *mealExpenseSaved = -Etemp;
+    return(Dtemp+Ltemp+Btemp);
 }
