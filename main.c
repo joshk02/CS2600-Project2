@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "trip_summary.c"
+#include "trip_summary.h"
 #include "automotive.h"
 
 float totalExpenses;
@@ -36,10 +36,10 @@ int main(){
     printf("\nWith company coverage, employee must reimburse $%.2f for excess cost of meals\n", totalMealExpense);
     printf("You saved the company $%.2f through meal expenses.\n", mealExpenseSaved);
 
-    totalExpenses = totalTravelFee();
-    totalAllowableExpenses = totalAllowance();
+    totalExpenses = totalTravelFee() + breakfastCost + lunchCost + dinnerCost;
+    totalAllowableExpenses = totalAllowance() + breakfastAllowance + lunchAllowance + dinnerAllowance;
     savedAutomotiveAllowance();
-    savedAmount = returnSavedParking() + returnSavedTaxi();
+    savedAmount = returnSavedParking() + returnSavedTaxi() + mealExpenseSaved;
     excessExpenses = (totalExpenses - totalAllowableExpenses - savedAmount);
     printf("The total expenses for the trip are: $%.2f \n", totalExpenses);
     printf("The total allowable expenses for the trip are: $%.2f \n", totalAllowableExpenses);
