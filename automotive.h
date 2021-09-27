@@ -6,3 +6,6 @@ float parkingAllowance();
 float taxiAllowance();
 float totalTravelFee();
 float totalAllowance();
+float returnSavedTaxi();
+float returnSavedParking();
+void savedAutomotiveAllowance();

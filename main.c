@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include "trip_summary.c"
+#include "automotive.h"
 
+float totalExpenses;
+float totalAllowableExpenses;
+float excessExpenses;
+float savedAmount;
+  
 const float Bmeal=9, Lmeal=12, Dmeal=16;
 
 int main(){
@@ -30,5 +36,14 @@ int main(){
     printf("\nWith company coverage, employee must reimburse $%.2f for excess cost of meals\n", totalMealExpense);
     printf("You saved the company $%.2f through meal expenses.\n", mealExpenseSaved);
 
+    totalExpenses = totalTravelFee();
+    totalAllowableExpenses = totalAllowance();
+    savedAutomotiveAllowance();
+    savedAmount = returnSavedParking() + returnSavedTaxi();
+    excessExpenses = (totalExpenses - totalAllowableExpenses - savedAmount);
+    printf("The total expenses for the trip are: $%.2f \n", totalExpenses);
+    printf("The total allowable expenses for the trip are: $%.2f \n", totalAllowableExpenses);
+    printf("The excess expenses that must be reimbursed are: $%.2f \n", excessExpenses);
+    printf("The amount saved is: $%.2f", savedAmount);
     return 0;
 }
