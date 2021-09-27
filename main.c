@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include "automotive.h"
 #include "trip_summary.h"
 
@@ -33,10 +32,11 @@ int main(){
     lunchCost = cost(1);
     dinnerCost = cost(2);
   
-    totalExpenses = totalTravelFee();
-    totalAllowableExpenses = totalAllowance();
+    totalExpenses = totalTravelFee() + breakfastCost + lunchCost + dinnerCost;
+    totalAllowableExpenses = totalAllowance() + breakfastAllowance + lunchAllowance + dinnerAllowance;
+
     savedAutomotiveAllowance();
-    savedAmount = returnSavedParking() + returnSavedTaxi();
+    savedAmount = returnSavedParking() + returnSavedTaxi() + mealExpenseSaved;
     excessExpenses = (totalExpenses - totalAllowableExpenses - savedAmount);
   
     totalMealExpense = tallyExpenses(breakfastCost, breakfastAllowance, lunchCost, lunchAllowance, dinnerCost, dinnerAllowance, &mealExpenseSaved);
