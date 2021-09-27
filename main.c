@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "trip_summary.h"
 #include "automotive.h"
+#include "expenses.h"
 
 float totalExpenses;
 float totalAllowableExpenses;
@@ -36,14 +37,15 @@ int main(){
     printf("\nWith company coverage, employee must reimburse $%.2f for excess cost of meals\n", totalMealExpense);
     printf("You saved the company $%.2f through meal expenses.\n", mealExpenseSaved);
 
-    totalExpenses = totalTravelFee() + breakfastCost + lunchCost + dinnerCost;
-    totalAllowableExpenses = totalAllowance() + breakfastAllowance + lunchAllowance + dinnerAllowance;
+    totalExpenses = totalTravelFee() + breakfastCost + lunchCost + dinnerCost + roundAirfare() + registrationFees() + hotelFees();
+    totalAllowableExpenses = totalAllowance() + breakfastAllowance + lunchAllowance + dinnerAllowance + allowance();
     savedAutomotiveAllowance();
-    savedAmount = returnSavedParking() + returnSavedTaxi() + mealExpenseSaved;
+    savedAmount = returnSavedParking() + returnSavedTaxi() + mealExpenseSaved + amtSaved();
     excessExpenses = (totalExpenses - (totalAllowableExpenses - savedAmount));
+    printf("==============================================================================================================================\n");
     printf("The total expenses for the trip are: $%.2f \n", totalExpenses);
     printf("The total allowable expenses for the trip are: $%.2f \n", totalAllowableExpenses);
     printf("The excess expenses that must be reimbursed are: $%.2f \n", excessExpenses);
-    printf("The amount saved is: $%.2f", savedAmount);
+    printf("The amount saved for the company is: $%.2f", savedAmount);
     return 0;
 }
